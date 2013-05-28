@@ -3,6 +3,8 @@ sijaintimankeli
 
 Aineopintojen projektikurssilla toteutetun sovelluksen Sijaintimankeli julkinen repo
 
+Lue readme.txt!
+
 
 Ohjeita koodin käyttöönottoon:
 

@@ -1,0 +1,141 @@
+<!--
+HTML5 -käyttöliittymä
+Sijaintimankeli-palvelulle
+Authors: Eetu Hyyryläinen, Matias Laitinen, Tuomas Nurmi, Atte Räty
+Version: 20.5.2013
+-->
+<!DOCTYPE html>
+<html lang="fi">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link href="../media/normaaliTyyli.css" rel="StyleSheet" type="text/css" />
+		<!-- mobiiliTyyli pitää korjata! -->
+		<!-- link href="../media/mobiiliTyyli.css" rel="StyleSheet" type="text/css" />
+		<link href="../media/normaaliTyyli.css" rel="StyleSheet" media="all and (min-width: 800px)" type="text/css" / -->
+		<title>Sijaintimankeli</title>
+	</head>
+	<body>
+
+		<!-- Logout -nappi -->
+		<div id="logoutdiv" align="right">
+			<a href="../datansyotto/logout/" >
+			<button type="button" id="logout" >
+				Logout
+			</button> </a>
+		</div>
+
+		<!-- Kartta -->
+		<div id="map"></div>
+
+		<!-- Jatkuva paikannus -->
+		<div id="paikannusdiv" align="left" style="visibility: hidden" >
+			<input type="checkbox" name="track" id="track" onclick = paikannaJatkuvasti()>
+			<label for="track" > Paikanna jatkuvasti </label>
+		</div>
+
+		<!-- Ryhmään liittymis/-lisäys -dialogi -->
+		<div id="lisaaRyhma" style="visibility: hidden">
+			<form>
+				Ryhmä:
+				<br />
+				<input type="text" id="ryhmanimi" name="ryhmanimi" >
+				<br />
+				Salasana:
+				<br />
+				<input type="password" id="salasana" name="salasana" >
+				<br />
+				<button type="button" id="ok" onclick = lahetaRyhma(this.form)>
+					Ok
+				</button>
+				<button type="button" id="cancel" onclick = tyhjaaKentat(this.form)>
+					Cancel
+				</button>
+			</form>
+		</div>
+
+		<!-- Ryhmien hallinta -dialogi -->
+		<div id="hallitseRyhmia" style="visibility: hidden">
+			<form>
+				Ryhmä:
+				<br>
+				<select id="valitseryhma" name="valitseryhma">
+					<!-- Placeholdereita: <option name=one value="ryhmä 1"> Ryhmä 1 </option>
+					<option name=two value="ryhmä 2"> Ryhmä 1 </option>
+					<option name=three value="ryhmä 3"> Ryhmä 1 </option> -->
+				</select>
+				<br />
+				Uusi salasana:
+				<br />
+				<input type="password" id="uusisalasana" name="uusisalasana">
+				<br />
+				Vahvista uusi salasana:
+				<br />
+				<input type="password" id="vahvistasalasana" name="vahvistasalasana">
+				<br />
+				Ryhmän Kuvaus:
+				<br />
+				<textarea id="kuvaus" name="kuvaus" cols=16 rows=3></textarea>
+				<br />
+				<button type="button" id="ok" onclick = paivitaRyhma(this.form)>
+					Ok
+				</button>
+				<button type="button" id="cancel" onclick = tyhjaaKentat(this.form)>
+					Cancel
+				</button>
+			</form>
+		</div>
+
+		<!-- Kohteen lisäys -dialogi -->
+		<div id="lisaaKohdeDialog" style="visibility: hidden">
+			<form>
+				Kommentti:
+				<br />
+				<textarea id="sepustus" name="sepustus" cols=25 rows=4></textarea>
+				<br />
+				Kohde voimassa:
+				<br />
+				<select id="voimassaolo" name="voimassaolo">
+					<option name=yksi value="1"> 1 h </option>
+					<option name=kaksi value="2"> 2 h</option>
+					<option name=kahdeksan value="8"> 8 h </option>
+					<option name=vrk value="24"> vrk </option>
+					<option name=vko value="168"> vko </option>
+				</select>
+				<br />
+				<button type="button" id="ok" onclick = lahetaKohde(this.form)>
+					Ok
+				</button>
+				<button type="button" id="cancel" onclick = tyhjaaKentat(this.form)>
+					Cancel
+				</button>
+			</form>
+		</div>
+
+		<!-- Oman sijainnin kommentointi -dialogi -->
+		<div id="omaSijaintiDialog" style="visibility: hidden">
+			<form>
+				Kommentti:
+				<br />
+				<textarea id="omaKommentti" name="omaKommentti" cols=25 rows=4></textarea>
+				<br />
+				<button type="button" id="ok" onclick = lahetaOmaSijainti(this.form)>
+					Lähetä
+				</button>
+				<button type="button" id="cancel" onclick = tyhjaaKentat(this.form)>
+					Cancel
+				</button>
+			</form>
+		</div>
+		<br />
+		<br />
+		<!-- Logien tulostusta varten -->
+		<div id="comments"></div>
+
+		<!-- lisätään skriptit -->
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+		<!-- script src="http://openlayers.org/api/OpenLayers.js"></script -->
+		<script src="http://openlayers.org/dev/OpenLayers.js"></script >
+		<script type="text/javascript" src="../media/Client.js"></script>
+	</body>

@@ -1,0 +1,287 @@
+#logoutdiv {
+	width: 750px;
+	height: 26px;
+	background: rgba(0,0,100,0.7);
+	display: inline-block;
+	top: 15%;
+	left: 15%;
+	border-radius: 2px 2px 2px 2px;
+	padding: 2px;
+	color: #BFEFFF;
+}
+#map {
+	width: 750px;
+	height: 500px;
+	border: 2px solid black;
+}
+#paikannusdiv {
+	width: 750px;
+	height: 26px;
+	background: rgba(0,0,100,0.7);
+	display: inline-block;
+	top: 15%;
+	left: 15%;
+	padding: 2px;
+	color: #BFEFFF;
+	font-weight: bold;
+	font-size: 0.9em;
+	font-family: arial;
+}
+
+/*position: fixed;*/
+#lisaaRyhma, #hallitseRyhmia, #lisaaKohdeDialog, #omaSijaintiDialog {
+	position: absolute;
+	display: inline-block;
+	top: 15%;
+	left: 15%;
+	border-radius: 2px 2px 2px 2px;
+	padding: 4px;
+	border: 2px solid black;
+	background: rgba(0,0,100,0.7);
+	color: #BFEFFF;
+	box-shadow: 5px 5px 10px black;
+	z-index: 5000;
+}
+p.aika {
+	font-size: 0.7em;
+	font-style: italic;
+	display: inline;
+}
+/*
+ * Nappulat
+ */
+.piilotaPanel {
+	position: relative;
+	bottom: 0;
+	left: 0;
+}
+div.piilotaPanel div {
+	display: inline;
+	margin-left: -3px;
+	cursor: pointer;
+}
+div.piilotaPanel div:after {
+	font-weight: bold;
+	font-size: 0.9em;
+	font-family: Arial;
+	padding: 5px 13px 5px 10px;
+	color: #BFEFFF;
+	line-height: 1em;
+	border-style: double;
+	border-radius: 0px 20px 20px 0px;
+	background-color: #ccc;
+	background: rgba(0,0,100,0.7);
+}
+div.piilotaPanel div.piilotaButtonItemInactive:after, div.piilotaPanel div.piilotaButtonItemActive:after {
+	content: '<';
+}
+div.piilotaPanel div.piilotaButtonItemActive:after {
+	content: '>';
+	background: rgba(0,0,100,0.4);
+}
+
+.layerPanel {
+	position: relative;
+	bottom: 0;
+	left: 37px;
+}
+div.layerPanel div {
+	display: inline;
+	cursor: pointer;
+}
+div.layerPanel div:after {
+	font-weight: bold;
+	font-size: 0.9em;
+	font-family: arial;
+	padding: 5px;
+	color: #BFEFFF;
+	line-height: 1em;
+	border-style: double;
+	border-radius: 8px 8px 0px 0px;
+	background-color: #ccc;
+	background: rgba(0,0,100,0.7);
+}
+
+div.layerPanel div.kohdeButtonItemInactive:after, div.layerPanel div.kohdeButtonItemActive:after {
+	content: 'Lisää kohde';
+}
+div.layerPanel div.kohdeButtonItemActive:after {
+	text-decoration: underline;
+	background: rgba(0,0,100,0.4);
+}
+
+div.layerPanel div.sijaintiButtonItemInactive:after, div.layerPanel div.sijaintiButtonItemActive:after {
+	content: 'Paikanna minut';
+}
+div.layerPanel div.sijaintiButtonItemActive:after {
+	text-decoration: underline;
+	background: rgba(0,0,100,0.4);
+}
+
+div.layerPanel div.ryhmaButtonItemInactive:after, div.layerPanel div.ryhmaButtonItemActive:after {
+	content: 'Lisää ryhmä';
+}
+div.layerPanel div.ryhmaButtonItemActive:after {
+	text-decoration: underline;
+	background: rgba(0,0,100,0.4);
+}
+div.layerPanel div.hallintaButtonItemInactive:after, div.layerPanel div.hallintaButtonItemActive:after {
+	content: 'Ryhmän hallinta';
+}
+div.layerPanel div.hallintaButtonItemActive:after {
+	text-decoration: underline;
+	background: rgba(0,0,100,0.4);
+}
+
+/**
+ * Zoom Box
+ */
+.olHandlerBoxZoomBox {
+	border: 2px solid red;
+	position: absolute;
+	background-color: white;
+	opacity: 0.50;
+	font-size: 1px;
+	filter: alpha(opacity=50);
+}
+.olDrawBox {
+	cursor: crosshair;
+}
+
+div.olControlAttribution {
+	position: absolute;
+	font-size: 0.5em;
+	text-align: right;
+	color: #BFEFFF;
+	bottom: 0;
+	right: 0;
+	background: rgba(0,0,100,0.4);
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 2px 4px;
+	border-radius: 5px 0 0 0;
+	z-index: 0;
+}
+.olControlAttribution a {
+	color: #BFEFFF;
+	text-decoration: none;
+}
+div.olControlZoomPanel {
+	position: absolute;
+	top: 10px;
+	left: 7px;
+}
+div.olControlZoomPanel div {
+	cursor: pointer;
+	left: 0;
+	background-color: #ccc;
+	background-image: none;
+}
+div.olControlZoomPanel .olControlZoomInItemInactive, div.olControlZoomPanel .olControlZoomOutItemInactive {
+	font-family: monospace, arial;
+	position: relative;
+	color: #BFEFFF;
+	top: 0px;
+	margin: 1px;
+	border-style: double;
+	background-color: #ccc;
+	background: rgba(0,0,100,0.7);
+}
+div.olControlZoomPanel .olControlZoomInItemInactive {
+	border-radius: 0px 0px 0 0;
+}
+div.olControlZoomPanel .olControlZoomOutItemInactive {
+	border-radius: 0 0 0px 0px;
+}
+div.olControlZoomPanel .olControlZoomOutItemInactive:after, div.olControlZoomPanel .olControlZoomInItemInactive:after {
+	font-weight: bold;
+	content: '+';
+	font-size: 1.8em;
+	padding: 1px 7px 1px 7px;
+	z-index: 2000;
+	line-height: 1em;
+}
+
+div.olControlZoomPanel .olControlZoomOutItemInactive:after {
+	font-weight: bold;
+	content: '-';
+	font-size: 1.8em;
+	padding: 1px 7px 1px 7px;
+	z-index: 2000;
+	line-height: 1em;
+}
+div.olControlZoomPanel .olControlZoomToMaxExtentItemInactive {
+	display: none;
+	/* Jos joskus halutaan käyttää:*/
+}/*
+ div.olControlZoomPanel div.olControlGeolocateItemInactive,
+ div.olControlZoomPanel div.olControlGeolocateItemActive {
+ position: absolute;
+ right: 20px;
+ top: 98px;
+ border-radius: 5px 5px 5px 5px;
+ background: #ccc url(img/locate.png) center no-repeat;
+ background-color: rgba(0,0,100,0.4);
+ }
+ div.olControlZoomPanel div.olControlGeolocateItemActive {
+ background-color: rgba(0,0,100,0.2);
+ }
+ div.olControlGeolocateItemInactive:after {
+ font-weight: bold;
+ font-size: 36px;
+ padding:  7px;
+ z-index: 2000;
+ color: #BFEFFF;
+ line-height: 1em;
+ background: none;
+ }*/
+
+/**
+ * Layer switcher
+ */
+.olControlLayerSwitcher {
+	position: absolute;
+	top: 25px;
+	right: 0;
+	width: 20em;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	margin-top: 3px;
+	margin-left: 3px;
+	margin-bottom: 3px;
+	font-size: smaller;
+	color: #BFEFFF;
+	background-color: transparent;
+}
+
+.olControlLayerSwitcher .layersDiv {
+	padding-top: 5px;
+	padding-left: 10px;
+	padding-bottom: 5px;
+	padding-right: 10px;
+	background-color: rgba(0,0,100,0.5);
+}
+
+.olControlLayerSwitcher .layersDiv .baseLbl, .olControlLayerSwitcher .layersDiv .dataLbl {
+	margin-top: 3px;
+	margin-left: 3px;
+	margin-bottom: 3px;
+}
+
+.olControlLayerSwitcher .layersDiv .baseLayersDiv, .olControlLayerSwitcher .layersDiv .dataLayersDiv {
+	padding-left: 10px;
+}
+
+.olControlLayerSwitcher .maximizeDiv, .olControlLayerSwitcher .minimizeDiv {
+	width: 18px;
+	height: 18px;
+	top: 5px;
+	right: 0;
+	cursor: pointer;
+}
+/**
+ * Popup
+ */
+.olPopupCloseBox {
+	background: url("../media/close.gif") no-repeat;
+	cursor: pointer;
+}

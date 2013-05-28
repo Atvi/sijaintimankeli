@@ -1,0 +1,16 @@
+vaihda localhost palvelimen osotteeseen tarpeen mukaan
+
+http://localhost:8000/webui/
+http://localhost:8000/datansyotto/listaa/
+http://localhost:8000/datansyotto/sijainti/?nick=pedro&kommentti=heihei&koord=25.74733,62.24300
+http://localhost:8000/datansyotto/kohde/?nick=kurppa&kommentti=heihei&koord=25.74773,62.24300
+http://localhost:8000/datansyotto/lisaaryhmaan/?nick=pedro&salasana=lintu&nimi=petolinnut
+oli aikaisemmin myös lisaaryhma samoilla parametreilla, yhdistin
+
+http://localhost:8000/datansyotto/poistaryhmasta/?nick=sika&ryhma=baari
+http://localhost:8000/datansyotto/listaaryhmat/
+huom debug, ei clientin käyttöön
+
+http://localhost:8000/datansyotto/poistakaikkiryhmat
+
+http://localhost:8000/datansyotto/listaaadminryhmat/?nick=kurppa

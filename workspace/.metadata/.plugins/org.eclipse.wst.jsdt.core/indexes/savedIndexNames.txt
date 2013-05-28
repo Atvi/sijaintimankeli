@@ -1,0 +1,6 @@
+INDEX VERSION 1.122+C:\MyTemp\TeamMetaMeat\Subversion\workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2697134599.index
+1713378211.index
+3753322216.index
+912984608.index
+1114727135.index

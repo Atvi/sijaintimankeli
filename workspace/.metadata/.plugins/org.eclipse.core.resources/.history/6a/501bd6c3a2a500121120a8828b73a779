@@ -1,0 +1,164 @@
+
+<html>
+<head>
+<title>Testiiiiiiii</title>
+</head>
+<body onload="init()">
+<!-- scriptill‰ -->
+<div id="map"></div>
+<script src="http://openlayers.org/api/OpenLayers.js"></script>
+<script type="text/javascript">
+
+
+        var map, markers;
+
+        function init(){
+
+            map = new OpenLayers.Map('map');
+            map.addLayer(new OpenLayers.Layer.OSM("pohja", "", {'displayInLayerSwitcher':false}));
+
+
+            //ourpoiniks kannattaa laittaa oma sijainti
+            ourpoint = new OpenLayers.LonLat(25.74509, 62.24451);
+            //ourpoint = new OpenLayers.LonLat(geolocate, location.coords.longitude);
+            ourpoint.transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
+
+            map.setCenter(ourpoint, 13);
+            
+            //TODO loopissa k‰yd‰‰n kaikki ryhm‰t l‰pi
+            lisaaRyhma("ryhma1");
+            piirraMarker("25.74773","62.25500","K‰ytt‰j‰1","Olen ryhm‰ss‰1");
+            lisaaRyhma("ryhma2");
+            piirraMarker("25.74000","62.24000","K‰ytt‰j‰2","Olen ryhm‰ss‰2");
+            lisaaRyhma("ryhma3");
+
+            //Voidaan valita mitk‰ ryhm‰t n‰ytet‰‰n
+            map.addControl(new OpenLayers.Control.LayerSwitcher());
+            
+            //piirraMarker("25.74773","62.24300","Bra","sijaitsee t‰ss‰");
+
+        }
+
+        //Lis‰t‰‰n ryhm‰ kartalle
+        function lisaaRyhma(nimi){
+
+            //markers = new OpenLayers.Layer.Markers('<a target="_blank" href="http://users.jyu.fi/~eeoshyyr/TeamMetaMeat/">ryhm‰2 </a>');
+            markers = new OpenLayers.Layer.Markers(nimi);
+
+            //TODO Loopissa kaikki t‰m‰n ryhm‰n k‰ytt‰j‰t kartalle
+               
+            map.addLayer(markers);
+
+        }
+        
+        //Piirt‰‰ markkerin kartalle, haluttuun kohtaan, halutulla popupin sis‰llˆll‰
+        function piirraMarker(lon, lat, nimi, kuvaus){
+          var popup;
+
+   	    var location = new OpenLayers.LonLat(lon,lat);
+
+            var myLocation = new OpenLayers.Geometry.Point(lon, lat).transform('EPSG:4326', 'EPSG:3857'); //Mahdollisesti turha..
+
+            location.transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
+   	    var size = new OpenLayers.Size(21,25);
+            var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+
+            //var icon = new OpenLayers.Icon('./testi.png',size,offset); //Oma kuva
+            var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker.png',size,offset);
+
+            //teh‰‰n popup
+            popup = new OpenLayers.Popup.FramedCloud("Popup",
+            //myLocation.getBounds().getCenterLonLat(), null,'<a target="_blank" href="http://users.jyu.fi/~eeoshyyr/TeamMetaMeat/">'+nimi+'</a><br> ' + kuvaus , null,true); // true if we want a close (X) button, false otherwise
+            myLocation.getBounds().getCenterLonLat(), null, nimi + '<br>' + kuvaus , null, true);
+
+            //tehd‰‰n marker
+            var marker = new OpenLayers.Marker(location, icon.clone());
+
+            marker.events.register('mousedown', marker, function(evt) { map.addPopup(popup); popup.show(); OpenLayers.Event.stop(evt);});
+            markers.addMarker(marker);
+
+
+            //Tooltip... Ei toimi, plus v‰‰r‰s paikkaa, plus turha?
+            //marker.addFeatures([new OpenLayers.Feature.Vector(myLocation, {tooltip: 'Nimi'})]);
+
+        }
+        
+        //Poistetaan kaikki markkerit kartasta
+        //Atm toimii ainoastaan uusiin markkereihin
+        function poistaMarkers(){
+          markers.clearMarkers();
+        }
+
+        //Testailuatestailua. Kattoo boksista arvon ja sijottaa sen kartalle
+        function jumpTo(){
+            var selectBox = document.getElementById('jumpTo');
+   	    if (selectBox.value == "NA") return;
+   	    var parse = selectBox.value.split(',');
+   	    piirraMarker(parse[0],parse[1],parse[2],"tulkaa ryyb");
+
+          }
+
+          //Jos tarkka paikannus ei onnistu, koitetaan hieman ep‰tarkempaa
+          function errorCallback_highAccuracy(position) {
+            if (error.code == error.TIMEOUT)
+            {
+            navigator.geolocation.watchPosition(
+               successCallback, 
+               errorCallback_lowAccuracy,
+               {maximumAge:10000, timeout:5000, enableHighAccuracy: false});
+            }   
+
+          }
+
+          //Jos paikannus ei onnistu tehd‰‰n mit‰?
+          function errorCallback_lowAccuracy(position) {
+            //TODO ei saada sijaintia syyst‰ x
+            //error.code == 1 => permission denied
+            //error.code == 2 => position unavailable
+            //error.code == 3 => timeout
+          }
+
+          //Paikannuksen onnistuessa piirret‰‰n oma sijainti kartalle
+          function successCallback(position) {
+            piirraMarker(position.coords.longitude+"",position.coords.latitude+"","Sijainti","Nykyinen sijainti selaimen mukaan.");
+          }
+
+          //Kannattanee k‰ynnist‰‰ karttaa luodessa, ja piirt‰‰ tulokset vasta kun ne halutaan --> tarkempi sijainti
+          //gepsin k‰ynnist‰miseen ja tarkan sijainnin saamiseen tuppaa kulumaan hetki
+          //TODO mahollisuus kytkee pois
+          function omaSijainti(){
+            //watchPositioni vaikuttas olevan tarkempi k‰nnykk‰‰ k‰ytt‰ess‰. Pˆyt‰koneella menn‰‰n suht randomilla ja no can do
+            //navigator.geolocation.getCurrentPosition(...
+            navigator.geolocation.watchPosition(
+            successCallback,
+            errorCallback_highAccuracy,
+            {maximumAge:10000, timeout:5000, enableHighAccuracy: true}); //maximumAge, jos on liian iso puhelin ei v‰ltt‰m‰tt‰ p‰ivit‰ riitt‰v‰n usein
+
+          }
+
+
+    </script>
+    <br />
+    <label>Laita markkeri paikkaan: </label>
+    <select id="jumpTo" onchange="jumpTo();">
+        <option value="NA">=== Valkkaa paikka ===</option>
+    	<option value="25.74773,62.24300,Bra">Bar Bra</option>
+    	<option value="25.74792,62.24482,Ruma">Ruma</option>
+    	<option value="25.74737,62.24460,Shaker">Shaker</option>
+        <option value="25.74509,62.24451,Jyv‰skyl‰">Jyv‰skyl‰</option>
+    </select>
+     <br>
+     <button id="locate" onclick = omaSijainti()>Locate me!</button>
+     <input type="checkbox" name="track" id="track">
+        <label for="track">Track my position(ei vaikuta viel‰ mihink‰‰n)</label>
+
+        <!-- L‰hinn‰ poistaMarkers() :in testaamiseen. Ei tarvetta lopullisessa tyˆss‰ -->
+        <button id="tyhjenna" onclick = poistaMarkers()>Poista markkerit</button>
+
+        <style>
+        @media screen
+        {
+          #map{width: 750px; height:500px; border: 2px solid black;}
+        }
+    </style>
+</body>
